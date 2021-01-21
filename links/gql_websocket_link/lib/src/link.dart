@@ -96,8 +96,10 @@ class WebSocketLink extends Link {
     this.inactivityTimeout,
   }) : assert(uri == null || (channel == null && channelGenerator == null)) {
     _uri = uri;
-    _channelGenerator = channelGenerator;
-    _channel = channel ?? _channelGenerator();
+    if (uri == null) {
+      _channelGenerator = channelGenerator;
+      _channel = channel ?? _channelGenerator();
+    }
     _connectionStateController.value = closed;
   }
 
